@@ -21,9 +21,10 @@ app.use("/api/admin", adminRouter);
 app.use("/api/doctor", doctorRouter);
 
 // --- Serve Static Files ---
-// Serve files from the project's `public` folder (cross-platform)
-// This uses __dirname so it works on macOS, Linux, and Windows
-const publicPath = path.join(__dirname, 'public');
+// !! สำคัญ: กำหนด Path ไปยังโฟลเดอร์ public ของคุณให้ถูกต้อง !!
+// นี่เป็น Path แบบตายตัว (Hardcoded) ที่เคยทำงานได้ในเครื่องของคุณ
+// หากคุณย้ายโปรเจกต์ไปไว้ที่อื่น จะต้องมาแก้ไข Path นี้ใหม่
+const publicPath = "C:/xampp/htdocs/my-webapp2/public"; 
 app.use(express.static(publicPath));
 
 // --- Handle Page Navigation ---
