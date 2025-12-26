@@ -9,7 +9,7 @@ const port = process.env.PORT_HTTP || 36142;
 
 // Middleware
 const corsOptions = {
-  origin: ['http://project.3bbddns.com:36141', 'http://project.3bbddns.com:36142', 'http://127.0.0.1:36141', 'http://127.0.0.1:36142'],
+  origin: ['http://project.3bbddns.com:36141', 'http://project.3bbddns.com:36142', 'http://127.0.0.1:36141', 'http://127.0.0.1:36142', 'http://localhost:36141'],
   credentials: true
 };
 app.use(cors(corsOptions));
