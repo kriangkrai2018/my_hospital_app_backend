@@ -108,6 +108,13 @@ const standardFormulas = [
 async function seedDatabase() {
     const connection = await pool.promise().getConnection();
     try {
+        // Ensure the permissions table exists (avoid crash when missing)
+        await connection.query(`CREATE TABLE IF NOT EXISTS formula_user_permissions (
+            formula_id INT NOT NULL,
+            user_id INT NOT NULL,
+            PRIMARY KEY (formula_id, user_id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;`);
+
         await connection.beginTransaction();
         console.log('Clearing old public formulas...');
         const [publicFormulas] = await connection.query("SELECT id FROM formulas WHERE visibility = 'public'");
