@@ -8,7 +8,11 @@ const app = express();
 const port = process.env.PORT_HTTP || 36142;
 
 // Middleware
-app.use(cors());
+const corsOptions = {
+  origin: ['http://project.3bbddns.com:36141', 'http://project.3bbddns.com:36142', 'http://127.0.0.1:36141', 'http://127.0.0.1:36142'],
+  credentials: true
+};
+app.use(cors(corsOptions));
 app.use(express.json()); // ใช้ express.json() แทน bodyParser
 app.use(express.urlencoded({ extended: true })); // ใช้ express.urlencoded() แทน bodyParser
 
@@ -83,8 +87,8 @@ app.get('/JS/app-config.js', (req, res) => {
 });
 
 // --- Server Start ---
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server is running on http://0.0.0.0:${port}`);
     console.log(`Serving static files from: ${publicPath}`);
 });
 
