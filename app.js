@@ -1,7 +1,6 @@
 const express = require("express");
 require('dotenv').config();
 const path = require('path');
-const fs = require('fs');
 const cors = require("cors");
 
 const app = express();
@@ -22,14 +21,10 @@ app.use("/api/admin", adminRouter);
 app.use("/api/doctor", doctorRouter);
 
 // --- Serve Static Files ---
-// Serve the frontend `public` folder so frontend and API are same-origin in dev
-const publicPath = path.join(__dirname, '..', 'my_hospital_app_frontend', 'public');
-
-if (!fs.existsSync(publicPath)) {
-    console.warn('Warning: frontend public folder not found at', publicPath);
-    console.warn('If you want to serve the frontend from backend, ensure the path above is correct.');
-}
-
+// !! สำคัญ: กำหนด Path ไปยังโฟลเดอร์ public ของคุณให้ถูกต้อง !!
+// นี่เป็น Path แบบตายตัว (Hardcoded) ที่เคยทำงานได้ในเครื่องของคุณ
+// หากคุณย้ายโปรเจกต์ไปไว้ที่อื่น จะต้องมาแก้ไข Path นี้ใหม่
+const publicPath = "C:/xampp/htdocs/my-webapp2/public"; 
 app.use(express.static(publicPath));
 
 // --- Handle Page Navigation ---
