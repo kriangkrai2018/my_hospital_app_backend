@@ -4,7 +4,7 @@ const path = require('path');
 const cors = require("cors");
 
 const app = express();
-const port = process.env.PORT_HTTP || 4200;
+const port = process.env.PORT_HTTP || 36142;
 
 // Middleware
 app.use(cors());
@@ -21,10 +21,8 @@ app.use("/api/admin", adminRouter);
 app.use("/api/doctor", doctorRouter);
 
 // --- Serve Static Files ---
-// !! สำคัญ: กำหนด Path ไปยังโฟลเดอร์ public ของคุณให้ถูกต้อง !!
-// นี่เป็น Path แบบตายตัว (Hardcoded) ที่เคยทำงานได้ในเครื่องของคุณ
-// หากคุณย้ายโปรเจกต์ไปไว้ที่อื่น จะต้องมาแก้ไข Path นี้ใหม่
-const publicPath = "C:/xampp/htdocs/my_hospital_app_backend/public"; 
+// Use the project's `public` folder relative to the repository root so path is portable across OSes
+const publicPath = path.join(__dirname, 'public');
 app.use(express.static(publicPath));
 
 // --- Handle Page Navigation ---
