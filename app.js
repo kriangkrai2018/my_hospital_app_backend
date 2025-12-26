@@ -44,7 +44,7 @@ app.get('/', (req, res) => {
 const frontendPublicJsDir = path.join(__dirname, '..', 'my_hospital_app_frontend', 'public', 'JS');
 const frontendConfigPath = path.join(frontendPublicJsDir, 'app-config.js');
 function writeFrontendConfig() {
-    const host = process.env.FRONTEND_API_HOST || 'localhost';
+    const host = process.env.FRONTEND_API_HOST || 'project.3bbddns.com';
     const portForFrontend = process.env.PORT_HTTP || port;
     const apiBase = `http://${host}:${portForFrontend}`;
     const content = `window.APP_CONFIG = window.APP_CONFIG || {}; window.APP_CONFIG.API_BASE = '${apiBase}';`;
