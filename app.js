@@ -2,6 +2,7 @@ const express = require("express");
 require('dotenv').config();
 const path = require('path');
 const cors = require("cors");
+const fs = require('fs');
 
 const app = express();
 const port = process.env.PORT_HTTP || 36142;
@@ -25,9 +26,15 @@ app.use("/api/doctor", doctorRouter);
 const publicPath = path.join(__dirname, 'public');
 app.use(express.static(publicPath));
 
+// Also serve the frontend project's public folder so frontend and API share the same origin.
+const frontendStaticPath = path.join(__dirname, '..', 'my_hospital_app_frontend', 'public');
+if (fs.existsSync(frontendStaticPath)) {
+    app.use('/', express.static(frontendStaticPath));
+    console.log(`Also serving frontend static from: ${frontendStaticPath}`);
+}
+
 // --- Handle Page Navigation ---
-// ทำให้เมื่อเข้าหน้าแรก (/) จะไปที่ login.html (พยายามหาใน backend/public ก่อน ถ้าไม่มี ใช้ frontend/public)
-const fs = require('fs');
+// ทำให้เมื่อเข้หน้าแรก (/) จะไปที่ login.html (พยายามหาใน backend/public ก่อน ถ้าไม่มี ใช้ frontend/public)
 app.get('/', (req, res) => {
     const localLogin = path.join(publicPath, 'login.html');
     const frontendLogin = path.join(__dirname, '..', 'my_hospital_app_frontend', 'public', 'login.html');
